@@ -22,7 +22,7 @@ class FitStraightLine {
     let mean = values.reduce((prev, curr) => prev + curr) / values.length;
     return mean;
   }
-  claculateSlopeIntercept() {
+  calculateSlopeIntercept() {
     let N = this.calcN();
     let numerator = 0;
     let denominator = 0;
@@ -39,6 +39,12 @@ class FitStraightLine {
     return { slope, intercept };
   }
 }
+const X = [1, 2, 3, 4, 5];
+const Y = [2, 3, 5, 7, 1.1];
+
+const fitLine = new FitStraightLine(X, Y);
+const result = fitLine.calculateSlopeIntercept();
+console.log(result);
 /*
 This program generates random coordinates for points, fits straight lines to these points, and calculates the slopes and intercepts of these lines.
 */
@@ -64,7 +70,7 @@ console.log("Range is: ", n);
 for (let i = 0; i < n; i++) {
   const { X, Y } = generateRandomXY(n);
   stLines.push(new FitStraightLine(X, Y));
-  const { slope, intercept } = stLines[i].claculateSlopeIntercept();
+  const { slope, intercept } = stLines[i].calculateSlopeIntercept();
   slopes.push(slope);
   intercepts.push(intercept);
 }
