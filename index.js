@@ -26,12 +26,12 @@ class FitStraightLine {
     let N = this.calcN();
     let numerator = 0;
     let denominator = 0;
-    let meanX = this.Mean(this.X, N);
-    let meanY = this.Mean(this.Y, N);
+    let meanX = this.Mean(this.X);
+    let meanY = this.Mean(this.Y);
 
     for (let i = 0; i < N; i++) {
-      numerator = (this.X[i] - meanX) * (this.Y[i] - meanY);
-      denominator = Math.pow(this.X[i] - meanX, 2);
+      numerator += (this.X[i] - meanX) * (this.Y[i] - meanY);
+      denominator += Math.pow(this.X[i] - meanX, 2);
     }
     let slope = numerator / denominator;
     let intercept = meanY - slope * meanX;
