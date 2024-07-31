@@ -39,7 +39,6 @@ class FitStraightLine {
     return { slope, intercept };
   }
 }
-
 /*
 This program generates random coordinates for points, fits straight lines to these points, and calculates the slopes and intercepts of these lines.
 */
