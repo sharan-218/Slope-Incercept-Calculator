@@ -1,7 +1,7 @@
-// const ctx = document.querySelector("#canvas").getContext("2d");
-// const sp = document.querySelector("#slope");
-// const ip = document.querySelector("#intercept");
-// const fy = document.querySelector("#fitY");
+const ctx = document.querySelector("#canvas").getContext("2d");
+const sp = document.querySelector("#slope");
+const ip = document.querySelector("#intercept");
+const fy = document.querySelector("#fitY");
 class FitStraightLine {
   constructor(X, Y) {
     if (
@@ -42,6 +42,7 @@ class FitStraightLine {
     if (denominator === 0) throw new Error("Cannot divide by zero");
     this.slope = numerator / denominator;
     this.intercept = meanY - this.slope * meanX;
+    return this.slope, this.intercept;
   }
   predict(x) {
     if (this.slope === null || this.intercept === null) {
@@ -51,14 +52,7 @@ class FitStraightLine {
   }
 }
 
-const X = [80, 78, 75, 75, 68, 6.7, 60, 50.9];
-const Y = [12, 13, 14, 14, 14, 16, 15, 17];
-const stLine = new FitStraightLine(X, Y);
-let predictX = stLine.predict(800);
-console.log(predictX);
-
-/*
-function plotGraph(X, Y, fittedY) {
+function plotGraph(X, Y, fittedY, predictedX, predictedY) {
   new Chart(ctx, {
     type: "scatter", // Scatter plot for individual data points
     data: {
@@ -76,6 +70,13 @@ function plotGraph(X, Y, fittedY) {
           borderColor: "rgba(255, 99, 132, 1)",
           showLine: true,
         },
+        {
+          label: "Predicted Point",
+          data: [{ x: predictedX, y: predictedY }],
+          backgroundColor: "rgba(250,26,86)",
+          pointRadius: 5,
+          pointHoverRadius: 7,
+        },
       ],
     },
     options: {
@@ -91,10 +92,9 @@ function plotGraph(X, Y, fittedY) {
     },
   });
 }
-*/
 
 /*
-This program generates random coordinates for points, fits straight lines to these points, and calculates the slopes and intercepts of these lines.
+This program generates random coordinates for points, fits straight lines to these points, and calculates slopes and intercepts of these lines.
 */
 /*
 function randomRange(R) {
@@ -128,9 +128,14 @@ console.log("Intercepts: ", intercepts);
 console.log(fittedY);
 */
 
-// const fitLine = new FitStraightLine(X, Y);
-// const result = fitLine.calculateSlopeIntercept();
-// const fittedY = X.map((x) => x * result.slope + result.intercept);
+const X = [80, 78, 75, 75, 68, 6.7, 60, 50.9];
+const Y = [12, 13, 18.4, 15.4, 1.4, 16, 158, 17];
+const fitLine = new FitStraightLine(X, Y);
+const result = fitLine.calculateSlopeIntercept();
+let predictX = fitLine.predict(800);
+let predictY = fitLine.predict(predictX);
+console.log(predictX, predictY);
+const fittedY = X.map((x) => x * result.slope + result.intercept);
 // (function (slope, intercept, fitY) {
 //   sp.innerHTML = `
 //     Slope : <b>${slope}</b>
@@ -142,4 +147,4 @@ console.log(fittedY);
 //     Fitted  Y : <b>${fitY}</b>
 //   `;
 // })(result.slope, result.intercept, fittedY);
-// plotGraph(X, Y, fittedY);
+plotGraph(X, Y, fittedY, predictX, predictY);
